@@ -9,14 +9,14 @@ const { shows } = require('../public/data')
 
 const App = React.createClass({
   assignShow (nextState, replace) {
-    const showArray = shows.filter((show) => show.imdbID === nextState.params.id)
+    const show = shows.find((show) => show.imdbID === nextState.params.id)
 
-    if (showArray.length < 1) {
+    if (show) {
+      Object.assign(nextState.params, show)
+      return nextState
+    } else {
       return replace('/')
     }
-
-    Object.assign(nextState.params, showArray[0])
-    return nextState
   },
   render () {
     return (
